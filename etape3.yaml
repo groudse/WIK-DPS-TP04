@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: etape3
+spec:
+  replicas: 4
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 50%
+  selector:
+    matchLabels:
+      app: etape3
+  template:
+    metadata:
+      labels:
+        app: etape3
+    spec:
+      containers:
+      - name: etape3
+        image: registry.cluster.wik.cloud/public/echo
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
