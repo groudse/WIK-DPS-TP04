@@ -28,22 +28,23 @@ spec:
     app.kubernetes.io/name: etape2-replica
   ports:
   - protocol: TCP
-    port: 80
+    port: 8080
     targetPort: 8080
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: test-ingress-tp 
-  annotations:
-    ingress.kubernetes.io/rewrite-target: /
 spec:
+  ingressClassName: nginx
   rules:
   - host: etape5.com
-  - http:
+    http:
       paths:
         - path: /
           pathType: Prefix
           backend:
-            serviceName: service-etape4
-            servicePort: 80
+            service:
+              name: service-etape4
+              port: 
+                number: 8080
